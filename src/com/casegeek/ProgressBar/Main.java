@@ -105,7 +105,6 @@ public class Main extends JFrame implements ActionListener {
 				System.out.println(saveTo);
 			}
 		} else if (event.getSource() == launchBtnStart) {
-			System.out.println("hello");
 			System.out.println(optionsTxtUrl.getText());
 			pb.setUrl(optionsTxtUrl.getText());
 			pb.setName(saveTo);			
