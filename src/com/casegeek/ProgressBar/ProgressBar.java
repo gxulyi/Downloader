@@ -15,13 +15,19 @@ public class ProgressBar extends JPanel implements Runnable {
 	private String fileName = "";
 	private int fileSize = 0;
 	
-	ProgressBar(String urlToDL, String name) {
+	ProgressBar() {
 		super();
-		url = urlToDL;
-		fileName = name;
 		add(pBar);
 		
 		setVisible(true);		
+	}
+	
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
+	public void setName(String name) {
+		this.fileName = name;
 	}
 	
 
@@ -60,6 +66,7 @@ public class ProgressBar extends JPanel implements Runnable {
 				fos.close();
 			}
 			System.out.println("Complete");
+			pBar.setValue(0);
 		}
 	}
 	
