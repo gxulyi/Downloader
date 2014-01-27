@@ -1,6 +1,9 @@
 package com.casegeek.ProgressBar;
 
 import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -14,6 +17,7 @@ public class ProgressBar extends JPanel implements Runnable {
 	private String url = "";
 	private String fileName = "";
 	private int fileSize = 0;
+	private Logger LOGGER = new Logger();
 	
 	ProgressBar() {
 		super();
@@ -51,12 +55,14 @@ public class ProgressBar extends JPanel implements Runnable {
 			
 			byte data[] = new byte[fileSize];
 			
-			int count;
+			int count = 0;
 			pBar.setMaximum(fileSize);
 			pBar.setValue(0);
-			while ((count = in.read(data, 0, fileSize)) != -1) {
+			
+			while (in.read(data, 0, fileSize) != -1) {
 				pBar.setValue(count);
-				fos.write(data, 0, count);
+				fos.write(data, 0, in.read(data, 0, fileSize - 1));
+				count++;
 			}
 		} finally {
 			if (in != null) {
@@ -65,10 +71,12 @@ public class ProgressBar extends JPanel implements Runnable {
 			if (fos != null) {
 				fos.close();
 			}
-			System.out.println("Complete");
+			LOGGER.Log("Download Complete");
 			pBar.setValue(0);
 		}
 	}
+	
+	
 	
 	
 
